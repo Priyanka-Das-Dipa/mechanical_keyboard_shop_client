@@ -54,6 +54,25 @@ export default function Navbar() {
     };
   }, []);
 
+  // scroll off when modal is open
+  useEffect(() => {
+    if (dropdownState) {
+      const scrollBarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
+    } else {
+      document.body.style.overflow = "auto";
+      document.body.style.paddingRight = "0px";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+      document.body.style.paddingRight = "0px";
+    };
+  }, [dropdownState]);
+
   return (
     <>
       {/* ================= NAVBAR ================= */}

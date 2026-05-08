@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Mechanical Keyboard Shop Client",
-  description: "Developed by Priyanka Das",
+  description: "Developed by Priyanka_Dipa",
 };
 
 export default function RootLayout({
