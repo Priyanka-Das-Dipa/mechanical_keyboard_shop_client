@@ -74,11 +74,11 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="mt-20 bg-[#2f2f30] text-white">
+    <footer className="mt-20 bg-slate-950 border-t border-slate-800 text-white">
       <div className="container mx-auto px-5 py-14">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <h2 className="mb-5 text-3xl font-bold text-sky-600">KeyCraft</h2>
+            <h2 className="mb-5 text-3xl font-bold text-sky-400">KeyCraft</h2>
 
             <p className="leading-7 text-gray-300">
               Premium mechanical keyboards for gamers, developers, and keyboard
@@ -132,7 +132,7 @@ export default function Footer() {
 
               <a
                 href="tel:+6588888888"
-                className="flex items-center gap-3 transition-all duration-300 hover:text-sky-600"
+                className="flex items-center gap-3 transition-all duration-300 hover:text-sky-400"
               >
                 <BiPhone size={18} />
                 <span>+88 8888 8888</span>
@@ -140,7 +140,7 @@ export default function Footer() {
 
               <a
                 href="mailto:support@keycraft.com"
-                className="flex items-center gap-3 transition-all duration-300 hover:text-sky-600"
+                className="flex items-center gap-3 transition-all duration-300 hover:text-sky-400"
               >
                 <FaMailBulk size={18} />
                 <span>support@keycraft.com</span>
@@ -154,7 +154,7 @@ export default function Footer() {
                   href={item.path}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex size-10 items-center justify-center rounded-full border border-gray-600 transition-all duration-300 hover:-translate-y-1 hover:border-sky-400 hover:bg-sky-600"
+                  className="flex size-10 items-center justify-center rounded-full border border-gray-600 transition-all duration-300 hover:-translate-y-1 hover:border-sky-400 hover:bg-cyan-400 hover:text-black"
                 >
                   {item.icon}
                 </a>
@@ -163,7 +163,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-while-800 pt-6 text-center text-sm text-gray-400">
+        <div className="mt-12 border-t border-slate-800 pt-6 text-center text-sm text-gray-400">
           <p>© {new Date().getFullYear()} KeyCraft. All Rights Reserved.</p>
         </div>
       </div>
