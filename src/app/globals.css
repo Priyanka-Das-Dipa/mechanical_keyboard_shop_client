@@ -35,6 +35,17 @@ body {
     --foreground: #ededed;
   }
 }
+/* Ticker animation */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@layer utilities {
+  .animate-ticker {
+    animation: ticker 22s linear infinite;
+  }
+}
 
 /* reusable classes */
 .link {

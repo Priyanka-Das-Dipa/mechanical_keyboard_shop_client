@@ -23,11 +23,10 @@ export default function WhyChoose() {
     },
   ];
 
- 
   return (
     <>
       <section className="py-24 relative overflow-hidden">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-linear-to-r from-sky-500/10 to-indigo-500/10 text-sky-400 text-sm font-medium px-6 py-2.5 rounded-full border border-sky-500/20 mb-6">
               <span className="w-2 h-2 bg-sky-400 rounded-full animate-pulse" />

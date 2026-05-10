@@ -34,8 +34,13 @@ export default function Customized() {
     },
   ];
   return (
-    <div>
-      <section className="py-24">
+    <>
+      <div className="flex items-center gap-4">
+        <div className="flex-1 h-px bg-[rgba(148,163,184,0.10)]" />
+        <div className="w-1.5 h-1.5 rounded-full bg-[#0ea5e9] animate-pulse" />
+        <div className="flex-1 h-px bg-[rgba(148,163,184,0.10)]" />
+      </div>
+      <section className="py-24 ">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-bold tracking-tighter mb-4">
@@ -85,6 +90,6 @@ export default function Customized() {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }

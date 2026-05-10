@@ -76,7 +76,7 @@ export default function Navbar() {
   return (
     <>
       {/* ================= NAVBAR ================= */}
-      <section className="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/80 px-2 pt-2 pb-1 backdrop-blur-xl shadow-lg">
+      <section className="sticky py-4 top-0 z-50 border-b border-slate-800 bg-slate-950/80 px-2 pt-3 backdrop-blur-xl shadow-lg">
         <div className="container mx-auto">
           <nav className="flex items-center justify-between">
             {/* ================= LOGO ================= */}

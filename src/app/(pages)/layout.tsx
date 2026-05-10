@@ -10,7 +10,7 @@ export default function layout({
   return (
     <>
       <Navbar />
-      <div className="container mx-auto min-h-screen mt-2">{children}</div>
+      <div className="min-h-screen mt-2">{children}</div>
       <Footer />
     </>
   );

@@ -42,9 +42,9 @@ export default function Banner() {
   );
 
   return (
-    <div className="pt-10 container mx-auto">
+    <div className="">
       {/* Embla root */}
-      <div className="relative h-60 sm:h-80 md:h-[470px] lg:h-[540px] rounded-xl overflow-hidden shadow-2xl">
+      <div className="relative h-60 sm:h-80 md:h-117.5 lg:h-162.5 overflow-hidden shadow-2xl">
         {/* Prev arrow */}
         <ArrowButton
           onClick={scrollPrev}
@@ -89,7 +89,7 @@ export default function Banner() {
 
                 {/* Text content */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
-                  <p className="text-xs sm:text-sm md:text-base font-medium uppercase tracking-widest mb-2 opacity-80">
+                  <p className="text-xs sm:text-sm md:text-xl font-medium uppercase tracking-widest mb-2 opacity-80">
                     {slide.subtitle}
                   </p>
                   <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 drop-shadow-lg">
