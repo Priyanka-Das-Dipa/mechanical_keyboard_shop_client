@@ -16,7 +16,7 @@ export default function ProductCard({ product }: { product: Product }) {
         viewport={{ once: true }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         whileHover={{ y: -8, transition: { duration: 0.2 } }}
-        className="group bg-(--card-bg) border border-(--border-color) rounded-2xl overflow-hidden hover:border-primary/30"
+        className="group bg-(--card-bg) hover:shadow-[0_0_30px_rgba(14,165,233,0.08)] rounded-2xl overflow-hidden "
       >
         <div
           className="group relative flex flex-col rounded-2xl overflow-hidden border border-[rgba(148,163,184,0.15)] bg-[rgba(15,23,42,0.7)] backdrop-blur-sm
