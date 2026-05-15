@@ -12,7 +12,7 @@ import ProductMediaUpload from "./ProductMediaUpload";
 export default function AddProductPage() {
   const [images, setImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-//   const [features, setFeatures] = useState<string[]>([""]);
+  const [features, setFeatures] = useState<string[]>([""]);
 
   const form = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
@@ -53,18 +53,17 @@ export default function AddProductPage() {
         </div>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
-          <ProductBasicInfo form={form} />
+          <ProductBasicInfo
+            form={form}
+            features={features}
+            setFeatures={setFeatures}
+          />
           <ProductMediaUpload
             images={images}
             setImages={setImages}
             imagePreviews={imagePreviews}
             setImagePreviews={setImagePreviews}
           />
-          {/* <ProductDetails
-            form={form}
-            features={features}
-            setFeatures={setFeatures}
-          /> */}
 
           <div className="flex justify-end pt-6">
             <button

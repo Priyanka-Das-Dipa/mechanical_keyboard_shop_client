@@ -1,12 +1,18 @@
 "use client";
 import { ProductFormData } from "@/src/utilities/shema/product.schema";
-import { Star } from "lucide-react";
+import { Plus, Star, X } from "lucide-react";
 import { Controller, UseFormReturn } from "react-hook-form";
 
 interface Props {
   form: UseFormReturn<ProductFormData>;
+  features: string[];
+  setFeatures: React.Dispatch<React.SetStateAction<string[]>>;
 }
-export default function ProductBasicInfo({ form }: Props) {
+export default function ProductBasicInfo({
+  form,
+  features,
+  setFeatures,
+}: Props) {
   const {
     register,
     formState: { errors },
@@ -15,6 +21,28 @@ export default function ProductBasicInfo({ form }: Props) {
     watch,
   } = form;
   const rating = watch("rating");
+  const addFeature = () => {
+    setFeatures((prev) => [...(prev || []), ""]);
+  };
+
+  const updateFeature = (index: number, value: string) => {
+    const updated = [...features];
+    updated[index] = value;
+    setFeatures(updated);
+    setValue(
+      "features",
+      updated.filter((f) => f.trim() !== ""),
+    );
+  };
+
+  const removeFeature = (index: number) => {
+    const updated = features.filter((_, i) => i !== index);
+    setFeatures(updated.length ? updated : [""]);
+    setValue(
+      "features",
+      updated.filter((f) => f.trim() !== ""),
+    );
+  };
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border p-8 space-y-6">
@@ -37,7 +65,7 @@ export default function ProductBasicInfo({ form }: Props) {
             Product Description <span className="text-red-500">*</span>
           </label>
           <textarea
-            {...register("name")}
+            {...register("description")}
             className="form-input"
             placeholder="Write a description..."
           />
@@ -98,7 +126,7 @@ export default function ProductBasicInfo({ form }: Props) {
         </div>
 
         {/* Quantity */}
-        <div >
+        <div>
           <label className="form-label">
             Stock Quantity <span className="text-red-500">*</span>
           </label>
@@ -112,6 +140,46 @@ export default function ProductBasicInfo({ form }: Props) {
             <p className="form-error">{errors.quantity.message}</p>
           )}
         </div>
+      </div>
+
+      {/* Features */}
+      <div>
+        <div className="flex justify-between items-center mb-3">
+          <label className="form-label">Key Features</label>
+          <button
+            type="button"
+            onClick={addFeature}
+            className="flex items-center gap-2 text-blue-600 hover:text-blue-700 text-sm font-medium"
+          >
+            <Plus size={18} /> Add Feature
+          </button>
+        </div>
+
+        <div className="space-y-3">
+          {features?.map((feature, index) => (
+            <div key={index} className="flex gap-3">
+              <input
+                type="text"
+                value={feature}
+                onChange={(e) => updateFeature(index, e.target.value)}
+                className="form-input flex-1"
+                placeholder="Noise cancelling technology"
+              />
+              {features.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => removeFeature(index)}
+                  className="text-red-500 hover:bg-red-50 p-3 rounded-xl"
+                >
+                  <X size={20} />
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+        {errors.features && (
+          <p className="form-error mt-2">{errors.features.message}</p>
+        )}
       </div>
 
       {/* Rating */}
