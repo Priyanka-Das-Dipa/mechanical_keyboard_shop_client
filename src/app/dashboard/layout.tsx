@@ -12,7 +12,7 @@ export default function layout({
       <SidebarProvider>
         <div className="flex h-screen overflow-hidden bg-[#f8fafc]">
           <Sidebar />
-          <main className="flex-1 overflow-auto p-6 bg-white">{children}</main>
+          <main className="flex-1 overflow-auto  bg-gray-50">{children}</main>
         </div>
       </SidebarProvider>
     </>

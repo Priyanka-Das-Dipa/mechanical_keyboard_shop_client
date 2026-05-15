@@ -1,7 +1,9 @@
-import React from 'react'
+import AddProductPage from "@/src/components/dashboard/admin/products/AddProductPage";
 
-export default function AddProductPage() {
+export default function AddProduct() {
   return (
-    <div> HI page</div>
-  )
+    <div>
+      <AddProductPage />
+    </div>
+  );
 }

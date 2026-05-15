@@ -37,8 +37,12 @@ body {
 }
 /* Ticker animation */
 @keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @layer utilities {
@@ -84,4 +88,17 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #0ea5e9;
   border-radius: 999px;
+}
+
+/* admin from */
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-1.5;
+}
+
+.form-input {
+  @apply w-full px-4 py-3 text-gray-700 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all;
+}
+
+.form-error {
+  @apply text-red-500 text-sm mt-1.5;
 }
