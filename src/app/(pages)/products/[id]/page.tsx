@@ -24,12 +24,7 @@ const product = {
     "Plug & Play",
     "Compatible with Windows & Mac",
   ],
-  images: [
-    "https://images.unsplash.com/photo-1618384889247-14c2e0c7c4c4?w=800",
-    "https://images.unsplash.com/photo-1587829741301-dc798e83add3?w=800",
-    "https://images.unsplash.com/photo-1541140538774-9c4b8c8b5e3b?w=800",
-    "https://images.unsplash.com/photo-1541140538774-9c4b8c8b5e3b?w=800",
-  ],
+  images: [img1, img2, img1, img2],
 };
 
 export default function ProductDetailsPage() {

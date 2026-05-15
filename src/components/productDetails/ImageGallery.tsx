@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
@@ -10,7 +10,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
-export default function ImageGallery({ images }: { images: string[] }) {
+export default function ImageGallery({ images }: { images: StaticImageData[] }) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   return (
     <div>
