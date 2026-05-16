@@ -15,7 +15,7 @@ import { useSidebar } from "./SidebarContext";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: Home },
-  { href: "/dashboard/all-product", label: "Products", icon: Package },
+  { href: "/dashboard/all-product", label: "All Products", icon: Package },
   { href: "/dashboard/add-product", label: "Add Product", icon: Plus },
 ];
 

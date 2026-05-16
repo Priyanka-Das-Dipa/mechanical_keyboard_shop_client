@@ -46,7 +46,7 @@ export default function AddProductPage() {
 
   return (
     <div className="min-h-screen py-10 px-4">
-      <div className="max-w-5xl mx-auto">
+      <div className="container mx-auto">
         <div className="mb-10">
           <h1 className="text-4xl font-bold text-gray-900">Add New Product</h1>
           <p className="text-gray-600 mt-2">Fill all required information</p>
