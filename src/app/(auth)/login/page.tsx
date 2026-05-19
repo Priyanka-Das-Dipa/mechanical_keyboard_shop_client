@@ -1,42 +1,7 @@
-"use client";
-
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import Link from "next/link";
-import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
-import Image from "next/image";
-
-const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-  rememberMe: z.boolean().optional(),
-});
-
-type LoginForm = z.infer<typeof loginSchema>;
+import LoginForm from "@/src/components/auth/LoginForm";
 
 export default function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginForm>({
-    resolver: zodResolver(loginSchema),
-  });
-
-  const onSubmit = async (data: LoginForm) => {
-    setIsLoading(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log("Login Data:", data);
-    alert("Login successful! (Demo)");
-    setIsLoading(false);
-  };
-
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-6 py-20">
       <div className="w-full max-w-2xl">
@@ -55,75 +20,7 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div>
-              <label className="block text-sm text-(--muted-text) mb-2">
-                Email Address
-              </label>
-              <input
-                {...register("email")}
-                type="email"
-                className="w-full bg-white/5 border border-(--border-color) rounded-2xl px-6 py-4 focus:border-(--primary) outline-none transition-all"
-                placeholder="you@email.com"
-              />
-              {errors.email && (
-                <p className="text-red-400 text-sm mt-1">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm text-(--muted-text) mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  {...register("password")}
-                  type={showPassword ? "text" : "password"}
-                  className="w-full bg-white/5 border border-(--border-color) rounded-2xl px-6 py-4 focus:border-(--primary) outline-none transition-all"
-                  placeholder="••••••••"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-6 top-4 text-(--muted-text) hover:text-white"
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
-              {errors.password && (
-                <p className="text-red-400 text-sm mt-1">
-                  {errors.password.message}
-                </p>
-              )}
-            </div>
-
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 text-sm">
-                <input
-                  type="checkbox"
-                  {...register("rememberMe")}
-                  className="accent-(--primary)"
-                />
-                Remember me
-              </label>
-              <Link
-                href="/forgot-password"
-                className="text-sm text-(--primary) hover:underline"
-              >
-                Forgot Password?
-              </Link>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-(--primary) hover:bg-(--primary-hover) disabled:opacity-70 transition-all text-black font-semibold py-4 rounded-2xl text-lg active:scale-[0.985]"
-            >
-              {isLoading ? "Signing In..." : "Sign In"}
-            </button>
-          </form>
+          <LoginForm />
 
           {/* Divider */}
           <div className="my-8 flex items-center gap-4">
