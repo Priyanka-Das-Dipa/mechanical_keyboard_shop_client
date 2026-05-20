@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import { authApi } from "../features/auth/authApi";
 import rootReducer from "./rootReducer";
+import { productApi } from "../features/product/productApi";
 
 const persistConfig = {
   key: "root",
@@ -19,7 +20,9 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
       },
-    }).concat(authApi.middleware),
+    })
+      .concat(authApi.middleware)
+      .concat(productApi.middleware),
 });
 
 export const persistor = persistStore(store);

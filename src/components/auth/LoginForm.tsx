@@ -39,25 +39,30 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data: LoginFormData) => {
+    // or RegisterFormData
     try {
-      const response = await loginUser({
-        email: data.email,
-        password: data.password,
-      }).unwrap();
+      const response = await loginUser(data).unwrap(); // or registerUser
+
+      console.log("Full API Response:", response); // Keep for now
+
+      // ✅ FIXED: Use tokens.accessToken
+      if (!response?.tokens?.accessToken) {
+        toast.error("No access token received from server");
+        return;
+      }
 
       dispatch(
         setCredentials({
           user: response.user,
-          token: response.token,
+          token: response.tokens.accessToken, // ← Important fix
         }),
       );
 
-      toast.success("Welcome back! 🎉");
-      router.push("/dashboard"); // Change to your main dashboard route
+      toast.success("Login successful! Welcome back 🎉");
+      router.push("/dashboard"); // or wherever you want to go
     } catch (err: any) {
-      const errorMessage =
-        err?.data?.message || err?.error || "Invalid email or password";
-      toast.error(errorMessage);
+      const message = err?.data?.message || "Login failed";
+      toast.error(message);
     }
   };
 

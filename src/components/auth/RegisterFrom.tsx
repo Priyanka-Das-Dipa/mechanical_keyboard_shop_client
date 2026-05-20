@@ -50,16 +50,24 @@ export default function RegisterForm() {
         password: data.password,
       }).unwrap();
 
+      console.log("🔐 Raw Response from API:", response); // ← Add this for debugging
+
+      if (!response?.tokens?.accessToken) {
+        toast.error("No token received from server");
+        return;
+      }
+
       dispatch(
         setCredentials({
           user: response.user,
-          token: response.token,
+          token: response?.tokens?.accessToken,
         }),
       );
 
       toast.success("Account created successfully! 🎉");
       reset();
       router.push("/dashboard"); // Change route as needed
+      console.log("✅ Credentials dispatched successfully");
     } catch (err: any) {
       const errorMessage =
         err?.data?.message || "Registration failed. Please try again.";

@@ -1,18 +1,35 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import {
   ProductFormData,
   productSchema,
 } from "@/src/utilities/shema/product.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ProductBasicInfo from "./ProductBasicInfo";
 import ProductMediaUpload from "./ProductMediaUpload";
+import { useCreateProductMutation } from "@/src/redux/features/product/productApi";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { useAppSelector } from "@/src/redux/store/hooks";
 
 export default function AddProductPage() {
   const [images, setImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [features, setFeatures] = useState<string[]>([""]);
+
+  const [createProduct, { isLoading }] = useCreateProductMutation();
+  const router = useRouter();
+
+  const { token, isAuthenticated } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    console.log("Auth State:", {
+      token: token ? "Present" : "Missing",
+      isAuthenticated,
+    });
+  }, [token, isAuthenticated]);
 
   const form = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
@@ -30,18 +47,43 @@ export default function AddProductPage() {
   });
 
   const onSubmit = async (data: ProductFormData) => {
+    if (!token) {
+      toast.error("Please login again");
+      router.push("/login");
+      return;
+    }
+
+    if (images.length === 0) {
+      toast.error("Please upload at least one image");
+      return;
+    }
+
     const payload = new FormData();
 
     Object.entries(data).forEach(([key, value]) => {
-      if (Array.isArray(value)) value.forEach((v) => payload.append(key, v));
-      else payload.append(key, String(value));
+      if (key === "features" && Array.isArray(value)) {
+        value.forEach((feature) => payload.append("features[]", feature)); // Important for array
+      } else if (value !== undefined && value !== null) {
+        payload.append(key, String(value));
+      }
     });
 
     images.forEach((img) => payload.append("images", img));
 
-    console.log("Submitting Product:", data);
-    // Call your API here
-    alert("Product created successfully!");
+    try {
+      await createProduct(payload).unwrap();
+      toast.success("Product created successfully! 🎉");
+
+      form.reset();
+      setImages([]);
+      setImagePreviews([]);
+      setFeatures([""]);
+
+      router.push("/dashboard/products");
+    } catch (err: any) {
+      console.error(err);
+      toast.error(err?.data?.message || "Failed to create product");
+    }
   };
 
   return (

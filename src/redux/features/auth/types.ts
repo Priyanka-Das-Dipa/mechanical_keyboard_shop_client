@@ -17,8 +17,14 @@ export interface RegisterRequest {
   // add more fields if needed
 }
 
+export interface Tokens {
+  accessToken: string;
+  refreshToken: string;
+}
+
 export interface AuthResponse {
   user: User;
-  token: string;
+  // token: string;
   refreshToken?: string;
+  tokens: Tokens;
 }

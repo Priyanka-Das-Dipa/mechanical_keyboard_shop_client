@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { AuthResponse, LoginRequest, RegisterRequest, User } from './types';
+import { BASE_URL } from '../../lib/api';
 
-const BASE_URL = "http://localhost:5000/api/v1";
+
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
