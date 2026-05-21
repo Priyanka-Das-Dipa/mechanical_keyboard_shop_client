@@ -1,10 +1,13 @@
 "use client";
-import { ProductFormData } from "@/src/utilities/shema/product.schema";
+import {
+  ProductFormData,
+  ProductFormInput,
+} from "@/src/utilities/shema/product.schema";
 import { Plus, Star, X } from "lucide-react";
 import { Controller, UseFormReturn } from "react-hook-form";
 
 interface Props {
-  form: UseFormReturn<ProductFormData>;
+  form: UseFormReturn<ProductFormInput>;
   features: string[];
   setFeatures: React.Dispatch<React.SetStateAction<string[]>>;
 }
@@ -20,7 +23,7 @@ export default function ProductBasicInfo({
     setValue,
     watch,
   } = form;
-  const rating = watch("rating");
+  const rating = Number(watch("rating") || 0);
   const addFeature = () => {
     setFeatures((prev) => [...(prev || []), ""]);
   };
@@ -202,8 +205,9 @@ export default function ProductBasicInfo({
                   onClick={() => field.onChange(star)}
                 />
               ))}
+
               <span className="ml-4 text-2xl font-semibold text-gray-700">
-                {rating}
+                {Number(rating)}
               </span>
             </div>
           )}

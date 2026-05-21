@@ -2,11 +2,12 @@
 "use client";
 import {
   ProductFormData,
+  ProductFormInput,
   productSchema,
 } from "@/src/utilities/shema/product.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import ProductBasicInfo from "./ProductBasicInfo";
 import ProductMediaUpload from "./ProductMediaUpload";
 import { useCreateProductMutation } from "@/src/redux/features/product/productApi";
@@ -31,48 +32,59 @@ export default function AddProductPage() {
     });
   }, [token, isAuthenticated]);
 
-  const form = useForm<ProductFormData>({
+  const form = useForm<ProductFormInput>({
     resolver: zodResolver(productSchema),
+    mode: "onChange",
     defaultValues: {
       name: "",
       brand: "",
+      description: "",
       price: 0,
-      currency: "USD",
       rating: 0,
       reviewCount: 0,
       quantity: 0,
-      description: "",
+      currency: "USD",
       features: [],
     },
   });
 
-  const onSubmit = async (data: ProductFormData) => {
+  // FIX rating watch issue
+  const rating = Number(form.watch("rating") || 0);
+
+  const onSubmit: SubmitHandler<ProductFormInput> = async (data) => {
+    if (!images.length) {
+      toast.error("Please upload images");
+      return;
+    }
+
     if (!token) {
-      toast.error("Please login again");
+      toast.error("Login required");
       router.push("/login");
       return;
     }
 
-    if (images.length === 0) {
-      toast.error("Please upload at least one image");
-      return;
-    }
+    const formData = new FormData();
 
-    const payload = new FormData();
+    formData.append("name", data.name);
+    formData.append("brand", data.brand);
+    formData.append("description", data.description);
+    formData.append("currency", data.currency);
 
-    Object.entries(data).forEach(([key, value]) => {
-      if (key === "features" && Array.isArray(value)) {
-        value.forEach((feature) => payload.append("features[]", feature)); // Important for array
-      } else if (value !== undefined && value !== null) {
-        payload.append(key, String(value));
-      }
+    formData.append("price", String(data.price));
+    formData.append("rating", String(data.rating));
+    formData.append("reviewCount", String(data.reviewCount));
+    formData.append("quantity", String(data.quantity));
+
+    formData.append("features", JSON.stringify(data.features));
+
+    images.forEach((img) => {
+      formData.append("images", img);
     });
 
-    images.forEach((img) => payload.append("images", img));
-
     try {
-      await createProduct(payload).unwrap();
-      toast.success("Product created successfully! 🎉");
+      await createProduct(formData).unwrap();
+
+      toast.success("Product created successfully");
 
       form.reset();
       setImages([]);
@@ -81,7 +93,6 @@ export default function AddProductPage() {
 
       router.push("/dashboard/products");
     } catch (err: any) {
-      console.error(err);
       toast.error(err?.data?.message || "Failed to create product");
     }
   };
