@@ -1,8 +1,5 @@
 "use client";
-import {
-  ProductFormData,
-  ProductFormInput,
-} from "@/src/utilities/shema/product.schema";
+import { ProductFormInput } from "@/src/utilities/shema/product.schema";
 import { Plus, Star, X } from "lucide-react";
 import { Controller, UseFormReturn } from "react-hook-form";
 

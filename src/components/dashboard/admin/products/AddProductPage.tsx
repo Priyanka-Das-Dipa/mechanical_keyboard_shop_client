@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import {
-  ProductFormData,
   ProductFormInput,
   productSchema,
 } from "@/src/utilities/shema/product.schema";
@@ -47,9 +46,6 @@ export default function AddProductPage() {
       features: [],
     },
   });
-
-  // FIX rating watch issue
-  const rating = Number(form.watch("rating") || 0);
 
   const onSubmit: SubmitHandler<ProductFormInput> = async (data) => {
     if (!images.length) {
