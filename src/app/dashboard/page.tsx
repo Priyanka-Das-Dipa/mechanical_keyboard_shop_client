@@ -29,7 +29,7 @@ const topProducts = [
 ];
 export default function DashboardMainPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 ">
       <div>
         <h1 className="text-4xl font-bold text-gray-900 mb-2">
           Welcome back, Emma 👋

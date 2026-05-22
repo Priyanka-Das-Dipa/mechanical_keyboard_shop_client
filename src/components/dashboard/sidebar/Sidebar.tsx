@@ -1,14 +1,5 @@
 "use client";
-import {
-  BarChart3,
-  Home,
-  Menu,
-  Package,
-  Plus,
-  Settings,
-  Users,
-  X,
-} from "lucide-react";
+import { Heart, Home, Menu, Package, Plus, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "./SidebarContext";
@@ -17,6 +8,7 @@ const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: Home },
   { href: "/dashboard/all-product", label: "All Products", icon: Package },
   { href: "/dashboard/add-product", label: "Add Product", icon: Plus },
+  { href: "/dashboard/wishlist", label: "Wishlist", icon: Heart },
 ];
 
 export default function Sidebar() {

@@ -117,7 +117,7 @@ export default function Navbar() {
             <div className="flex items-center gap-5">
               {/* Wishlist */}
               <Link
-                href="/wishlist"
+                href="/dashboard/wishlist"
                 className="relative hover:text-cyan-400 transition"
               >
                 <Heart size={24} />
