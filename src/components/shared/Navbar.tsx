@@ -4,17 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import logo from "@/public/logo.jpg";
+import logo from "@/public/logo.png";
 import { useAppSelector } from "@/src/redux/store/hooks";
 import { Heart, ShoppingCart } from "lucide-react";
 
 export default function Navbar() {
   const pathname = usePathname();
-
   const [dropdownState, setDropdownState] = useState(false);
-
   const dropDownMenuRef = useRef<HTMLDivElement | null>(null);
-
   const cartItems = useAppSelector((state) => state.cart?.items ?? []);
   const wishlistItems = useAppSelector((state) => state.wishlist?.items ?? []);
 
@@ -89,11 +86,8 @@ export default function Navbar() {
         <div className="container mx-auto">
           <nav className="flex items-center justify-between">
             {/* ================= LOGO ================= */}
-            <Link
-              href="/"
-              className="rounded-2xl px-3 py-2 transition hover:scale-110 hover:shadow-[0_0_25px_rgba(14,165,233,0.5)]"
-            >
-              <Image src={logo} alt="logo" className="w-8" />
+            <Link href="/">
+              <Image src={logo} alt="logo" className="w-full h-full" />
             </Link>
 
             {/* ================= DESKTOP MENU ================= */}

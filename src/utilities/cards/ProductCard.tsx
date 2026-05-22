@@ -10,19 +10,23 @@ import {
   useAddToWishlistMutation,
 } from "@/src/redux/features/user/userApi";
 import toast from "react-hot-toast";
-import { useAppDispatch } from "@/src/redux/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/src/redux/store/hooks";
 import { addToCart as addToCartSlice } from "@/src/redux/features/cart/cartSlice";
 import { addToWishlist as addToWishlistSlice } from "@/src/redux/features/wishlist/wishlistSlice";
 
 export default function ProductCard({ product }: { product: Product }) {
   const dispatch = useAppDispatch();
+
   const { _id, name, brand, price, images, quantity, rating } = product;
   const imageUrl =
     images?.length > 0 ? `http://localhost:5000${images[0]}` : "/b3.png";
 
   const [addToWishlist] = useAddToWishlistMutation();
   const [addToCart] = useAddToCartMutation();
+  const wishlistItems = useAppSelector((state) => state.wishlist.items);
+  const isWishlisted = wishlistItems.some((item) => item.productId === _id);
   const handleWishlist = async () => {
+    if (isWishlisted) return;
     try {
       await addToWishlist(_id).unwrap();
 
@@ -113,15 +117,22 @@ export default function ProductCard({ product }: { product: Product }) {
               {/* Add to Favorite */}
               <button
                 onClick={handleWishlist}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold
-            bg-[#0f172a]/80 backdrop-blur-sm text-[#f8fafc] border border-[rgba(148,163,184,0.2)]
-            hover:bg-rose-500 hover:text-white hover:border-rose-500
-            translate-y-3 group-hover:translate-y-0
-            transition-all duration-300 ease-out delay-30"
+                disabled={isWishlisted}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold
+                backdrop-blur-sm border transition-all duration-300 ease-out delay-30
+                translate-y-3 group-hover:translate-y-0
+                ${
+                  isWishlisted
+                    ? "bg-rose-500 text-white border-rose-500 cursor-not-allowed"
+                    : "bg-[#0f172a]/80 text-[#f8fafc] border-[rgba(148,163,184,0.2)] hover:bg-rose-500 hover:text-white hover:border-rose-500"
+                }`}
                 aria-label="Add to Favorite"
               >
-                <Heart size={14} />
-                Favorite
+                <Heart
+                  size={14}
+                  className={isWishlisted ? "fill-red-500" : ""}
+                />
+                {isWishlisted ? "Wishlisted" : "Favorite"}
               </button>
 
               {/* Add to Cart */}

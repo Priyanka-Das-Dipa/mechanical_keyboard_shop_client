@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
@@ -10,7 +10,11 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
-export default function ImageGallery({ images }: { images: StaticImageData[] }) {
+interface Props {
+  images: string[];
+}
+
+export default function ImageGallery({ images }: Props) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   return (
     <div>
@@ -19,21 +23,31 @@ export default function ImageGallery({ images }: { images: StaticImageData[] }) 
         <div className=" relative aspect-square bg-zinc-900 rounded-3xl overflow-hidden border border-[var(--border-color)]">
           <Swiper
             spaceBetween={10}
-            thumbs={{ swiper: thumbsSwiper }}
+            thumbs={{
+              swiper:
+                thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
+            }}
             modules={[FreeMode, Navigation, Thumbs]}
             className="h-full w-full"
           >
-            {images.map((img, index) => (
-              <SwiperSlide key={index}>
-                <Image
-                  src={img}
-                  alt={`Product view ${index + 1}`}
-                  fill
-                  className="object-contain p-8"
-                  priority={index === 0}
-                />
-              </SwiperSlide>
-            ))}
+            {images.map((img, index) => {
+              const imageUrl = `http://localhost:5000${img}`;
+
+              return (
+                <SwiperSlide key={index}>
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={imageUrl}
+                      alt={`Product view ${index + 1}`}
+                      fill
+                      className="object-cover "
+                      priority={index === 0}
+                      unoptimized
+                    />
+                  </div>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
 
@@ -48,18 +62,23 @@ export default function ImageGallery({ images }: { images: StaticImageData[] }) 
             modules={[FreeMode, Thumbs]}
             className="thumbs-swiper"
           >
-            {images.map((img, index) => (
-              <SwiperSlide key={index}>
-                <div className="relative aspect-square rounded-2xl overflow-hidden border border-[var(--border-color)] cursor-pointer hover:border-primary transition">
-                  <Image
-                    src={img}
-                    alt={`Thumbnail ${index + 1}`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
+            {images.map((img, index) => {
+              const imageUrl = `http://localhost:5000${img}`;
+
+              return (
+                <SwiperSlide key={index}>
+                  <div className="relative aspect-square rounded-2xl overflow-hidden border border-[var(--border-color)] cursor-pointer hover:border-primary transition">
+                    <Image
+                      src={imageUrl}
+                      alt={`Thumbnail ${index + 1}`}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
       </div>
