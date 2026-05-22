@@ -17,17 +17,17 @@ export default function Pagination({ page, setPage, totalPages }: Props) {
         <ChevronLeft size={20} />
       </button>
 
-      {pages.map((page) => (
+      {pages.map((pageNum) => (
         <button
-          key={page}
-          onClick={() => setPage(page)}
-          className={`px-5 py-3 rounded-xl font-medium ${
-            page === 1
-              ? "bg-primary text-white"
+          key={pageNum}
+          onClick={() => setPage(pageNum)}
+          className={`px-5 py-3 rounded-xl font-medium transition-all ${
+            page === pageNum
+              ? "border border-[var(--border-color)] bg-[var(--secondary-bg)]"
               : "border border-[var(--border-color)] hover:bg-[var(--secondary-bg)]"
           }`}
         >
-          {page}
+          {pageNum}
         </button>
       ))}
 
