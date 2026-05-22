@@ -4,11 +4,12 @@ import { persistStore, persistReducer } from "redux-persist";
 import { authApi } from "../features/auth/authApi";
 import rootReducer from "./rootReducer";
 import { productApi } from "../features/product/productApi";
+import { userApi } from "../features/user/userApi";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth"], // only persist auth state
+  whitelist: ["auth", "wishlist", "cart"], // only persist auth state
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -22,7 +23,8 @@ export const store = configureStore({
       },
     })
       .concat(authApi.middleware)
-      .concat(productApi.middleware),
+      .concat(productApi.middleware)
+      .concat(userApi.middleware),
 });
 
 export const persistor = persistStore(store);

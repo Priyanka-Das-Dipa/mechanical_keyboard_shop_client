@@ -5,13 +5,67 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import StarRating from "../others/StarRating";
 import { Product } from "@/src/redux/features/product/product.type";
+import {
+  useAddToCartMutation,
+  useAddToWishlistMutation,
+} from "@/src/redux/features/user/userApi";
+import toast from "react-hot-toast";
+import { useAppDispatch } from "@/src/redux/store/hooks";
+import { addToCart as addToCartSlice } from "@/src/redux/features/cart/cartSlice";
+import { addToWishlist as addToWishlistSlice } from "@/src/redux/features/wishlist/wishlistSlice";
 
 export default function ProductCard({ product }: { product: Product }) {
+  const dispatch = useAppDispatch();
   const { _id, name, brand, price, images, quantity, rating } = product;
-
   const imageUrl =
     images?.length > 0 ? `http://localhost:5000${images[0]}` : "/b3.png";
-  
+
+  const [addToWishlist] = useAddToWishlistMutation();
+  const [addToCart] = useAddToCartMutation();
+  const handleWishlist = async () => {
+    try {
+      await addToWishlist(_id).unwrap();
+
+      dispatch(
+        addToWishlistSlice({
+          productId: _id,
+          name,
+          brand,
+          price,
+          image: imageUrl,
+        }),
+      );
+
+      toast.success("Added to wishlist");
+    } catch (error) {
+      toast.error("Failed to add to wishlist");
+    }
+  };
+  const handleAddToCart = async () => {
+    try {
+      await addToCart({
+        productId: _id,
+        quantity: 1,
+      }).unwrap();
+
+      dispatch(
+        addToCartSlice({
+          productId: _id,
+          brand,
+          name,
+          price,
+          quantity: 1,
+          image: imageUrl,
+        }),
+      );
+
+      toast.success("Added to cart");
+    } catch (error) {
+      toast.error("Failed to add to cart");
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <motion.div
@@ -58,7 +112,7 @@ export default function ProductCard({ product }: { product: Product }) {
             >
               {/* Add to Favorite */}
               <button
-                // onClick={() => onAddToFavorite?.({ id, name, brand, price })}
+                onClick={handleWishlist}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold
             bg-[#0f172a]/80 backdrop-blur-sm text-[#f8fafc] border border-[rgba(148,163,184,0.2)]
             hover:bg-rose-500 hover:text-white hover:border-rose-500
@@ -72,9 +126,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
               {/* Add to Cart */}
               <button
-                // onClick={() =>
-                //   onAddToCart?.({ id, name, brand, price, quantity })
-                // }
+                onClick={handleAddToCart}
                 disabled={quantity === 0}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold
             bg-[#0ea5e9] text-white border border-[#0ea5e9]
@@ -129,65 +181,3 @@ export default function ProductCard({ product }: { product: Product }) {
     </div>
   );
 }
-
-{
-  /* Image Container */
-}
-// <div className="relative h-48 w-full bg-zinc-900 overflow-hidden">
-//   <motion.div
-//     whileHover={{ scale: 1.08 }}
-//     transition={{ duration: 0.6 }}
-//   >
-//     <Image src={image} alt={name} fill className="object-cover" />
-//   </motion.div>
-
-//   {quantity <= 5 && (
-//     <motion.div
-//       initial={{ opacity: 0, scale: 0.8 }}
-//       animate={{ opacity: 1, scale: 1 }}
-//       className="absolute top-3 right-3 bg-red-500/90 text-white text-xs px-2.5 py-1 rounded-full"
-//     >
-//       Only {quantity} left
-//     </motion.div>
-//   )}
-// </div>
-
-// {/* Content */}
-// <div className="p-5 space-y-3">
-//   <div>
-//     <p className="text-sm text-[var(--muted-text)]">{brand}</p>
-//     <h3 className="font-semibold text-lg leading-tight line-clamp-2 mt-1">
-//       {name}
-//     </h3>
-//   </div>
-
-//   {/* Rating */}
-//   <div className="flex items-center gap-1">
-//     {Array.from({ length: 5 }).map((_, i) => (
-//       <Star
-//         key={i}
-//         className={`w-4 h-4 ${
-//           i < Math.floor(rating)
-//             ? "fill-yellow-400 text-yellow-400"
-//             : "text-zinc-600"
-//         }`}
-//       />
-//     ))}
-//     <span className="text-sm text-[var(--muted-text)] ml-1">
-//       {rating}
-//     </span>
-//   </div>
-
-//   <div className="flex items-center justify-between pt-2">
-//     <span className="text-2xl font-bold text-white">
-//       ${price.toFixed(2)}
-//     </span>
-
-//     <Link
-//       href={`/products/${id}`}
-//       className="bg-primary hover:bg-primary-hover text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors"
-//     >
-//       See Details
-//     </Link>
-//   </div>
-// </div>

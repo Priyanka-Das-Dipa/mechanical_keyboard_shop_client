@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import logo from "@/public/logo.jpg";
+import { useAppSelector } from "@/src/redux/store/hooks";
+import { Heart, ShoppingCart } from "lucide-react";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -12,6 +14,13 @@ export default function Navbar() {
   const [dropdownState, setDropdownState] = useState(false);
 
   const dropDownMenuRef = useRef<HTMLDivElement | null>(null);
+
+  const cartItems = useAppSelector((state) => state.cart?.items ?? []);
+  const wishlistItems = useAppSelector((state) => state.wishlist?.items ?? []);
+
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+  const wishlistCount = wishlistItems.length;
 
   const navLinks = [
     {
@@ -111,6 +120,36 @@ export default function Navbar() {
               })}
             </ul>
 
+            <div className="flex items-center gap-5">
+              {/* Wishlist */}
+              <Link
+                href="/wishlist"
+                className="relative hover:text-cyan-400 transition"
+              >
+                <Heart size={24} />
+
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-2 -right-2 flex items-center justify-center w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-bold">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
+
+              {/* Cart */}
+              <Link
+                href="/cart"
+                className="relative hover:text-cyan-400 transition"
+              >
+                <ShoppingCart size={24} />
+
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 flex items-center justify-center w-5 h-5 rounded-full bg-cyan-500 text-white text-[10px] font-bold">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            </div>
+
             {/* ================= MOBILE BUTTON ================= */}
             <button
               onClick={() => setDropdownState(true)}
@@ -165,6 +204,35 @@ export default function Navbar() {
             >
               ✕
             </button>
+          </div>
+          <div className="flex items-center gap-6 mb-10">
+            <Link
+              href="/wishlist"
+              onClick={() => setDropdownState(false)}
+              className="relative"
+            >
+              <Heart size={26} />
+
+              {wishlistCount > 0 && (
+                <span className="absolute -top-2 -right-2 flex items-center justify-center w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-bold">
+                  {wishlistCount}
+                </span>
+              )}
+            </Link>
+
+            <Link
+              href="/cart"
+              onClick={() => setDropdownState(false)}
+              className="relative"
+            >
+              <ShoppingCart size={26} />
+
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 flex items-center justify-center w-5 h-5 rounded-full bg-cyan-500 text-white text-[10px] font-bold">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
           </div>
 
           {/* LINKS */}
