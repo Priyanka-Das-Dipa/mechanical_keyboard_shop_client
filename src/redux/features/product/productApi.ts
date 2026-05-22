@@ -38,13 +38,16 @@ export const productApi = createApi({
         limit = 6,
         sortBy = "createdAt",
         order = "desc",
+        rating
       }) => {
         const params = new URLSearchParams();
 
         if (searchTerm) {
           params.append("searchTerm", searchTerm);
         }
-
+        if (rating !== undefined) {
+          params.append("rating", String(rating));
+        }
         if (brand) {
           params.append("brand", brand);
         }

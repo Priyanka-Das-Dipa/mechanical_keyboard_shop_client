@@ -39,6 +39,8 @@ export interface ProductsResponse {
 
 export interface GetProductsQuery {
   searchTerm?: string;
+   
+  rating?: number;
 
   brand?: string;
 

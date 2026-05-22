@@ -1,11 +1,20 @@
 import { Review } from "../interfaces/review.interface";
+import user1 from "../../../public/user1.jpg";
+import user2 from "../../../public/user2.jpg";
+import user3 from "../../../public/user3.jpg";
+import brand1 from "../../../public/brand1.jpg";
+import brand2 from "../../../public/brand2.jpg";
+import brand3 from "../../../public/brand3.png";
+import brand4 from "../../../public/brand4.jpg";
+import brand5 from "../../../public/brand5.jpg";
+import brand6 from "../../../public/brand6.png";
 
 export const REVIEWS: Review[] = [
   {
     id: 1,
     name: "Alex Mercer",
     handle: "@alexmercer",
-    // avatar: "https://i.pravatar.cc/150?img=11",
+    avatar: user1,
     rating: 5,
     title: "Best keyboard I've ever typed on",
     review:
@@ -18,7 +27,7 @@ export const REVIEWS: Review[] = [
     id: 2,
     name: "Priya Sharma",
     handle: "@priyakeys",
-    // // avatar: "https://i.pravatar.cc/150?img=47",
+    avatar: user2,
     rating: 5,
     title: "Gestalt keycaps are a work of art",
     review:
@@ -31,7 +40,7 @@ export const REVIEWS: Review[] = [
     id: 3,
     name: "Jordan Lee",
     handle: "@jl_types",
-    // // avatar: "https://i.pravatar.cc/150?img=33",
+    avatar: user3,
     rating: 4,
     title: "Work Loader is built like a tank",
     review:
@@ -44,7 +53,7 @@ export const REVIEWS: Review[] = [
     id: 4,
     name: "Sam Okoro",
     handle: "@samkbd",
-    // // avatar: "https://i.pravatar.cc/150?img=60",
+    avatar: user1,
     rating: 5,
     title: "Customer support is unmatched",
     review:
@@ -57,7 +66,7 @@ export const REVIEWS: Review[] = [
     id: 5,
     name: "Mia Chen",
     handle: "@mia.types",
-    // // avatar: "https://i.pravatar.cc/150?img=25",
+    avatar: user2,
     rating: 5,
     title: "My WFH setup is finally complete",
     review:
@@ -70,7 +79,7 @@ export const REVIEWS: Review[] = [
     id: 6,
     name: "Daniel Ruiz",
     handle: "@danruiz_dev",
-    // // avatar: "https://i.pravatar.cc/150?img=52",
+    avatar: user3,
     rating: 5,
     title: "Converted three friends already",
     review:
@@ -81,9 +90,41 @@ export const REVIEWS: Review[] = [
   },
 ];
 
-
 export const STATS = [
   { value: "4.9", label: "Average rating" },
   { value: "2,400+", label: "Happy customers" },
   { value: "98%", label: "Would recommend" },
+];
+
+export const Brands = [
+  {
+    id: 1,
+    name: "Razer",
+    img: brand1,
+  },
+  {
+    id: 2,
+    name: "SteelSeries",
+    img: brand5,
+  },
+  {
+    id: 3,
+    name: "Logitech",
+    img: brand3,
+  },
+  {
+    id: 4,
+    name: "Wootang HE",
+    img: brand4,
+  },
+  {
+    id: 5,
+    name: "Corsair",
+    img: brand6,
+  },
+  {
+    id: 6,
+    name: "Ducky",
+    img: brand2,
+  },
 ];
