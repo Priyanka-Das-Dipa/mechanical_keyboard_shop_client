@@ -1,14 +1,37 @@
-export default function ProductFilters() {
-  const brands = [
-    "Keychron",
-    "NuPhy",
-    "Wooting",
-    "Akko",
-    "Mode",
-    "Leopold",
-    "Gateron",
-  ];
-  const layouts = ["Full Size", "TKL", "75%", "65%", "60%", "Alice"];
+import { useGetBrandsQuery } from "@/src/redux/features/product/productApi";
+
+interface Props {
+  brand: string;
+  setBrand: (value: string) => void;
+
+  minPrice?: number;
+  maxPrice?: number;
+
+  setMinPrice: (value: number | undefined) => void;
+  setMaxPrice: (value: number | undefined) => void;
+
+  onApply: () => void;
+}
+
+export default function ProductFilters({
+  brand,
+  setBrand,
+  minPrice,
+  maxPrice,
+  setMinPrice,
+  setMaxPrice,
+  onApply,
+}: Props) {
+  const { data: brands = [] } = useGetBrandsQuery();
+  
+  const toggleBrand = (value: string) => {
+    if (brand === value) {
+      setBrand(""); // unselect
+    } else {
+      setBrand(value); // single select
+    }
+  };
+
   return (
     <div className="sticky top-6 space-y-8">
       <h3 className="font-semibold text-xl">Filters</h3>
@@ -17,13 +40,15 @@ export default function ProductFilters() {
       <div>
         <h4 className="font-medium mb-4">Brands</h4>
         <div className="space-y-3">
-          {brands.map((brand) => (
-            <label
-              key={brand}
-              className="flex items-center gap-3 cursor-pointer"
-            >
-              <input type="checkbox" className="w-5 h-5 accent-primary" />
-              <span>{brand}</span>
+          {brands.map((b) => (
+            <label key={b} className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={brand === b}
+                onChange={() => toggleBrand(b)}
+                className="w-5 h-5 accent-primary"
+              />
+              <span>{b}</span>
             </label>
           ))}
         </div>
@@ -35,30 +60,26 @@ export default function ProductFilters() {
         <div className="flex gap-4">
           <input
             type="number"
+            value={minPrice || ""}
+            onChange={(e) =>
+              setMinPrice(
+                Number(e.target.value ? Number(e.target.value) : undefined),
+              )
+            }
             placeholder="Min"
             className="bg-[var(--secondary-bg)] border border-[var(--border-color)] rounded-xl px-4 py-2 w-full"
           />
           <input
             type="number"
+            value={maxPrice || ""}
+            onChange={(e) =>
+              setMaxPrice(
+                Number(e.target.value ? Number(e.target.value) : undefined),
+              )
+            }
             placeholder="Max"
             className="bg-[var(--secondary-bg)] border border-[var(--border-color)] rounded-xl px-4 py-2 w-full"
           />
-        </div>
-      </div>
-
-      {/* Layout */}
-      <div>
-        <h4 className="font-medium mb-4">Layout</h4>
-        <div className="space-y-3">
-          {layouts.map((layout) => (
-            <label
-              key={layout}
-              className="flex items-center gap-3 cursor-pointer"
-            >
-              <input type="checkbox" className="w-5 h-5 accent-primary" />
-              <span>{layout}</span>
-            </label>
-          ))}
         </div>
       </div>
 
@@ -72,7 +93,10 @@ export default function ProductFilters() {
         <span>In Stock Only</span>
       </label>
 
-      <button className="w-full cursor-pointer py-3 bg-[#0ea5e9]/10 border border-[#0ea5e9]/30 rounded-2xl font-medium transition">
+      <button
+        onClick={onApply}
+        className="w-full cursor-pointer py-3 bg-[#0ea5e9]/10 border border-[#0ea5e9]/30 rounded-2xl font-medium transition"
+      >
         Apply Filters
       </button>
     </div>

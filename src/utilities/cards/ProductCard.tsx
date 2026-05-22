@@ -1,13 +1,17 @@
 "use client";
 import Link from "next/link";
-import { Product } from "../interfaces/product.interface";
 import { Heart, ShoppingCart } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import StarRating from "../others/StarRating";
+import { Product } from "@/src/redux/features/product/product.type";
 
 export default function ProductCard({ product }: { product: Product }) {
-  const { id, name, brand, price, image, quantity, rating } = product;
+  const { _id, name, brand, price, images, quantity, rating } = product;
+
+  const imageUrl =
+    images?.length > 0 ? `http://localhost:5000${images[0]}` : "/b3.png";
+  
   return (
     <div>
       <motion.div
@@ -25,11 +29,12 @@ export default function ProductCard({ product }: { product: Product }) {
           {/* Product Image */}
           <div className="relative w-full h-52 bg-[#0f172a] overflow-hidden">
             <Image
-              src={image}
+              src={imageUrl}
               alt={name}
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, 33vw"
+              unoptimized
             />
             {/* Stock badge */}
             <div className="absolute top-3 right-3 z-10">
@@ -110,7 +115,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
             {/* CTA Button */}
             <Link
-              href={`/products/${id}`}
+              href={`/products/${_id}`}
               className="mt-1 w-full text-center py-2.5 rounded-xl text-sm font-semibold
           bg-[#0ea5e9]/10 text-[#0ea5e9] border border-[#0ea5e9]/30
           hover:bg-[#0ea5e9] hover:text-white hover:border-[#0ea5e9]

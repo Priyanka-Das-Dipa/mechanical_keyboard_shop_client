@@ -3,15 +3,13 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: [
-      "i.pravatar.cc",
-      "images.unsplash.com",
-      "www.keychron.com",
-      "nuphy.com",
-      "wooting.nl",
-      "akkogear.com",
-      "modedesigns.com",
-      "www.leopold.com",
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "5000",
+        pathname: "/uploads/**",
+      },
     ],
   },
 };

@@ -5,7 +5,7 @@ export const REVIEWS: Review[] = [
     id: 1,
     name: "Alex Mercer",
     handle: "@alexmercer",
-    avatar: "https://i.pravatar.cc/150?img=11",
+    // avatar: "https://i.pravatar.cc/150?img=11",
     rating: 5,
     title: "Best keyboard I've ever typed on",
     review:
@@ -18,7 +18,7 @@ export const REVIEWS: Review[] = [
     id: 2,
     name: "Priya Sharma",
     handle: "@priyakeys",
-    avatar: "https://i.pravatar.cc/150?img=47",
+    // // avatar: "https://i.pravatar.cc/150?img=47",
     rating: 5,
     title: "Gestalt keycaps are a work of art",
     review:
@@ -31,7 +31,7 @@ export const REVIEWS: Review[] = [
     id: 3,
     name: "Jordan Lee",
     handle: "@jl_types",
-    avatar: "https://i.pravatar.cc/150?img=33",
+    // // avatar: "https://i.pravatar.cc/150?img=33",
     rating: 4,
     title: "Work Loader is built like a tank",
     review:
@@ -44,7 +44,7 @@ export const REVIEWS: Review[] = [
     id: 4,
     name: "Sam Okoro",
     handle: "@samkbd",
-    avatar: "https://i.pravatar.cc/150?img=60",
+    // // avatar: "https://i.pravatar.cc/150?img=60",
     rating: 5,
     title: "Customer support is unmatched",
     review:
@@ -57,7 +57,7 @@ export const REVIEWS: Review[] = [
     id: 5,
     name: "Mia Chen",
     handle: "@mia.types",
-    avatar: "https://i.pravatar.cc/150?img=25",
+    // // avatar: "https://i.pravatar.cc/150?img=25",
     rating: 5,
     title: "My WFH setup is finally complete",
     review:
@@ -70,7 +70,7 @@ export const REVIEWS: Review[] = [
     id: 6,
     name: "Daniel Ruiz",
     handle: "@danruiz_dev",
-    avatar: "https://i.pravatar.cc/150?img=52",
+    // // avatar: "https://i.pravatar.cc/150?img=52",
     rating: 5,
     title: "Converted three friends already",
     review:

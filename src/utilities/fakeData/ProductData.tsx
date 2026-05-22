@@ -61,32 +61,32 @@ export const featuredProducts = [
 export const brands = [
   {
     name: "Keychron",
-    logo: "https://www.keychron.com/cdn/shop/files/Keychron_Logo_White.png?v=1",
+    // logo: "https://www.keychron.com/cdn/shop/files/Keychron_Logo_White.png?v=1",
     url: "/brands/keychron",
   },
   {
     name: "NuPhy",
-    logo: "https://nuphy.com/cdn/shop/files/logo.png?v=1",
+    // // logo: "https://nuphy.com/cdn/shop/files/logo.png?v=1",
     url: "/brands/nuphy",
   },
   {
     name: "Wooting",
-    logo: "https://wooting.nl/cdn/shop/files/wooting-logo-white.png?v=1",
+    // // logo: "https://wooting.nl/cdn/shop/files/wooting-logo-white.png?v=1",
     url: "/brands/wooting",
   },
   {
     name: "Akko",
-    logo: "https://akkogear.com/cdn/shop/files/akko-logo-white.png",
+    // // logo: "https://akkogear.com/cdn/shop/files/akko-logo-white.png",
     url: "/brands/akko",
   },
   {
     name: "Mode",
-    logo: "https://modedesigns.com/cdn/shop/files/mode-logo.png",
+    // // logo: "https://modedesigns.com/cdn/shop/files/mode-logo.png",
     url: "/brands/mode",
   },
   {
     name: "Leopold",
-    logo: "https://www.leopold.com/img/logo-white.png",
+    // logo: "https://www.leopold.com/img/logo-white.png",
     url: "/brands/leopold",
   },
 ];
