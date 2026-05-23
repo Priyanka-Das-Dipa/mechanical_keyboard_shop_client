@@ -1,4 +1,4 @@
-import { Product } from "@/src/utilities/types/product.type";
+import { Product } from "@/src/redux/features/product/product.type";
 import { SquarePen, Trash2 } from "lucide-react";
 import Image from "next/image";
 
@@ -38,51 +38,58 @@ export default function ProductTable({ products, onEdit, onDelete }: Props) {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {products.map((product, index) => (
-            <tr key={product.id} className="hover:bg-gray-50">
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {index + 1}
-              </td>
-              <td className="px-6 py-4 text-gray-800 whitespace-nowrap font-medium">
-                {product.name}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <div className="w-16 h-16 relative rounded-md overflow-hidden border">
+          {products.map((product, index) => {
+            const imageUrl =
+              product?.images?.length > 0
+                ? `http://localhost:5000${product?.images[0]}`
+                : "/b3.png";
+
+            return (
+              <tr key={product?._id} className="hover:bg-gray-50">
+                <td className="px-6 py-4 text-sm text-gray-500">{index + 1}</td>
+
+                <td className="px-6 py-4 font-medium text-gray-800">
+                  {product?.name}
+                </td>
+
+                {/* IMAGE COLUMN (ONLY FIRST IMAGE) */}
+                <td className="px-6 py-4">
                   <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    className="object-cover"
+                    src={imageUrl}
+                    alt={product?.name}
+                    width={56}
+                    height={56}
+                    className="w-14 h-14 object-cover rounded-md border"
+                    unoptimized
                   />
-                </div>
-              </td>
-              <td className="px-6 py-4 text-gray-800 whitespace-nowrap">
-                {product.brand}
-              </td>
-              <td className="px-6 text-gray-800 py-4 whitespace-nowrap">
-                {product.quantity}
-              </td>
-              <td className="px-6 text-gray-800 py-4 whitespace-nowrap font-medium">
-                {product.currency} {product.price}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-right space-x-3">
-                <button
-                  onClick={() => onEdit(product)}
-                  className="text-blue-600 hover:text-blue-900 p-2 hover:bg-blue-50 rounded-lg transition"
-                  title="Edit"
-                >
-                  <SquarePen />
-                </button>
-                <button
-                  onClick={() => onDelete(product)}
-                  className="text-red-600 hover:text-red-900 p-2 hover:bg-red-50 rounded-lg transition"
-                  title="Delete"
-                >
-                  <Trash2 />
-                </button>
-              </td>
-            </tr>
-          ))}
+                </td>
+
+                <td className="px-6 py-4 text-gray-800">{product?.brand}</td>
+
+                <td className="px-6 py-4 text-gray-800">{product?.quantity}</td>
+
+                <td className="px-6 py-4 font-medium text-gray-800">
+                  {product?.currency} {product?.price}
+                </td>
+
+                <td className="px-6 py-4 text-right space-x-3">
+                  <button
+                    onClick={() => onEdit(product)}
+                    className="text-blue-600 hover:text-blue-900"
+                  >
+                    <SquarePen />
+                  </button>
+
+                  <button
+                    onClick={() => onDelete(product)}
+                    className="text-red-600 hover:text-red-900"
+                  >
+                    <Trash2 />
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

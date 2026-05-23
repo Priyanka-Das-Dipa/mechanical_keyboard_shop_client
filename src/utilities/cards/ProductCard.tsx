@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Heart, ShoppingCart } from "lucide-react";
+import { Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import StarRating from "../others/StarRating";
@@ -11,7 +11,6 @@ import {
 } from "@/src/redux/features/user/userApi";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "@/src/redux/store/hooks";
-import { addToCart as addToCartSlice } from "@/src/redux/features/cart/cartSlice";
 import { addToWishlist as addToWishlistSlice } from "@/src/redux/features/wishlist/wishlistSlice";
 import CartActionButton from "@/src/components/shared/CartActionButton";
 

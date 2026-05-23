@@ -13,8 +13,7 @@ export default function layout({
         <div className="flex h-screen overflow-hidden bg-[#f8fafc]">
           <Sidebar />
           <main className=" flex-1 overflow-auto mt-5 bg-gray-50">
-            <div className="container mx-auto">
-
+            <div className="max-w-7xl mx-auto">
             {children}
             </div>
           </main>
