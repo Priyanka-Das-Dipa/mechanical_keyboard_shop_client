@@ -1,4 +1,4 @@
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../lib/api";
 import { RootState } from "../../store/store";
@@ -26,9 +26,8 @@ export const userApi = createApi({
 
   endpoints: (builder) => ({
     // WISHLIST
-    getWishlist: builder.query({
+    getWishlist: builder.query<any[], void>({
       query: () => "/user/wishlist",
-
       providesTags: ["Wishlist"],
     }),
 
@@ -37,7 +36,6 @@ export const userApi = createApi({
         url: `/user/wishlist/${productId}`,
         method: "POST",
       }),
-
       invalidatesTags: ["Wishlist"],
     }),
 
@@ -46,7 +44,6 @@ export const userApi = createApi({
         url: `/user/wishlist/${productId}`,
         method: "DELETE",
       }),
-
       invalidatesTags: ["Wishlist"],
     }),
 
@@ -89,10 +86,10 @@ export const userApi = createApi({
 });
 
 export const {
-    useGetWishlistQuery,
-    useAddToWishlistMutation,
-    useRemoveFromWishlistMutation,
-    useGetCartQuery,
-    useAddToCartMutation,
-    useRemoveFromCartMutation,
+  useGetWishlistQuery,
+  useAddToWishlistMutation,
+  useRemoveFromWishlistMutation,
+  useGetCartQuery,
+  useAddToCartMutation,
+  useRemoveFromCartMutation,
 } = userApi;

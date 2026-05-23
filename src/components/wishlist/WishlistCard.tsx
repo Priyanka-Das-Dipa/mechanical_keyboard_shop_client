@@ -2,13 +2,14 @@
 
 import { Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import CartActionButton from "../shared/CartActionButton";
 
 interface WishlistCardProps {
   productId: string;
   name: string;
   price: number;
-  image: string;
-  brand?: string;
+  images: string;
+  brand: string;
   onRemove: (productId: string) => void;
   onAddToCart: (productId: string) => void;
 }
@@ -17,17 +18,19 @@ export default function WishlistCard({
   productId,
   name,
   price,
-  image,
+  images,
   brand,
   onRemove,
   onAddToCart,
 }: WishlistCardProps) {
+  const imageUrl =
+    images?.length > 0 ? `http://localhost:5000${images[0]}` : "/b3.png";
   return (
     <div className="w-full max-w-65 mx-auto rounded-2xl border border-black/10 bg-white overflow-hidden font-sans select-none">
       {/* Image Area */}
       <div className="relative w-full aspect-square bg-gray-100">
         <Image
-          src={image}
+          src={imageUrl}
           alt={name}
           fill
           className="object-contain p-2"
@@ -61,13 +64,16 @@ export default function WishlistCard({
         </div>
 
         {/* Add to Cart Button */}
-        <button
-          onClick={() => onAddToCart(productId)}
-          className="w-full flex items-center text-black justify-center gap-2 text-sm font-medium py-3 rounded-xl border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors"
-        >
-          <ShoppingCart size={14}/>
-          Add to Cart
-        </button>
+
+        <CartActionButton
+          product={{
+            productId,
+            name,
+            brand,
+            price,
+            images: [imageUrl],
+          }}
+        />
       </div>
     </div>
   );

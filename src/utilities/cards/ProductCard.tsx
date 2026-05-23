@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "@/src/redux/store/hooks";
 import { addToCart as addToCartSlice } from "@/src/redux/features/cart/cartSlice";
 import { addToWishlist as addToWishlistSlice } from "@/src/redux/features/wishlist/wishlistSlice";
+import CartActionButton from "@/src/components/shared/CartActionButton";
 
 export default function ProductCard({ product }: { product: Product }) {
   const dispatch = useAppDispatch();
@@ -43,30 +44,6 @@ export default function ProductCard({ product }: { product: Product }) {
       toast.success("Added to wishlist");
     } catch (error) {
       toast.error("Failed to add to wishlist");
-    }
-  };
-  const handleAddToCart = async () => {
-    try {
-      await addToCart({
-        productId: _id,
-        quantity: 1,
-      }).unwrap();
-
-      dispatch(
-        addToCartSlice({
-          productId: _id,
-          brand,
-          name,
-          price,
-          quantity: 1,
-          image: imageUrl,
-        }),
-      );
-
-      toast.success("Added to cart");
-    } catch (error) {
-      toast.error("Failed to add to cart");
-      console.log(error);
     }
   };
 
@@ -136,20 +113,15 @@ export default function ProductCard({ product }: { product: Product }) {
               </button>
 
               {/* Add to Cart */}
-              <button
-                onClick={handleAddToCart}
-                disabled={quantity === 0}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold
-            bg-[#0ea5e9] text-white border border-[#0ea5e9]
-            hover:bg-[#38bdf8] hover:border-[#38bdf8]
-            disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[#0ea5e9]
-            translate-y-3 group-hover:translate-y-0
-            transition-all duration-300 ease-out delay-60"
-                aria-label="Add to Cart"
-              >
-                <ShoppingCart size={14} />
-                Add to Cart
-              </button>
+              <CartActionButton
+                product={{
+                  productId: _id,
+                  name,
+                  brand,
+                  price,
+                  images: [imageUrl],
+                }}
+              />
             </div>
           </div>
 

@@ -1,21 +1,21 @@
 "use client";
 import WishlistCard from "@/src/components/wishlist/WishlistCard";
-import { removeFromWishlist } from "@/src/redux/features/wishlist/wishlistSlice";
-import { useAppSelector } from "@/src/redux/store/hooks";
-import { useDispatch } from "react-redux";
+import {
+  useGetWishlistQuery,
+  useRemoveFromWishlistMutation,
+} from "@/src/redux/features/user/userApi";
+import toast from "react-hot-toast";
 
 export default function WishList() {
-  const dispatch = useDispatch();
-  const wishlistItems = useAppSelector((state) => state.wishlist?.items ?? []);
+  const { data: wishlistItems = [], isLoading } = useGetWishlistQuery();
+  const [removeFromWishlist] = useRemoveFromWishlistMutation();
 
-  const handleRemoveFromWishlist = (productId: string) => {
-    dispatch(removeFromWishlist(productId));
+  const handleRemoveFromWishlist = async (productId: string) => {
+    await removeFromWishlist(productId);
   };
 
   const handleAddToCart = (productId: string) => {
-    // TODO: Add your cart logic here
-    alert(`Product ${productId} added to cart!`);
-    // dispatch(addToCart(...));
+    toast.success(`Add to cart logic here: ${productId}`);
   };
 
   if (wishlistItems.length === 0) {
@@ -37,22 +37,17 @@ export default function WishList() {
   }
   return (
     <div className="px-5 ">
-      <div className="mb-8 ml-5">
-        <h1 className="text-3xl font-semibold text-gray-900">My Wishlist</h1>
-        <p className="text-gray-500 mt-1">
-          {wishlistItems.length} {wishlistItems.length === 1 ? "item" : "items"}
-        </p>
-      </div>
+      <h1 className="text-3xl text-black font-semibold mb-6">My Wishlist</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
         {wishlistItems.map((item) => (
           <WishlistCard
-            key={item.productId}
-            productId={item.productId}
-            name={item.name}
-            price={item.price}
-            image={item.image}
-            brand={item.brand}
+            key={item?._id}
+            productId={item?._id}
+            name={item?.name}
+            price={item?.price}
+            image={`http://localhost:5000${item?.images?.[0]}`}
+            brand={item?.brand}
             onRemove={handleRemoveFromWishlist}
             onAddToCart={handleAddToCart}
           />

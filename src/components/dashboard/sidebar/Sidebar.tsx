@@ -18,7 +18,7 @@ export default function Sidebar() {
     <div
       className={`h-full bg-white border-r border-gray-200 transition-all duration-300 flex flex-col ${open ? "w-64" : "w-20"}`}
     >
-      <div className="p-6 flex items-center gap-3 border-b">
+      <Link href="/" className="p-6 flex items-center gap-3 border-b">
         <div className="w-10 h-10 bg-(--primary) rounded-xl flex items-center justify-center text-white font-bold text-2xl">
           K
         </div>
@@ -27,7 +27,7 @@ export default function Sidebar() {
             KeyCraft
           </span>
         )}
-      </div>
+      </Link>
 
       <button
         onClick={toggleSidebar}

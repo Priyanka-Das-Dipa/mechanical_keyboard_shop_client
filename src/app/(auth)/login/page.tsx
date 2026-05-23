@@ -8,12 +8,12 @@ export default function LoginPage() {
         <div className="glass p-10 md:p-12 rounded-3xl">
           {/* Header */}
           <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-3 mb-4">
+            <Link href="/" className="inline-flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-(--primary) rounded-xl flex items-center justify-center text-2xl">
                 ⌨️
               </div>
               <h1 className="text-3xl font-bold tracking-tight">KeyCraft</h1>
-            </div>
+            </Link>
             <h2 className="text-3xl font-semibold">Welcome Back</h2>
             <p className="text-(--muted-text) mt-2">
               Sign in to continue your keyboard journey
