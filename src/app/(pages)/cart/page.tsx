@@ -3,11 +3,13 @@
 "use client";
 import {
   useAddToCartMutation,
+  useCheckoutMutation,
   useGetCartQuery,
   useRemoveFromCartMutation,
 } from "@/src/redux/features/user/userApi";
 import { X } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 export default function CartPage() {
@@ -15,6 +17,7 @@ export default function CartPage() {
   const [removeFromCart, { isLoading: removing }] = useRemoveFromCartMutation();
   const cartItems = data || [];
   const [addToCart] = useAddToCartMutation();
+  const router = useRouter();
   const subtotal = cartItems.reduce(
     (total: number, item: any) => total + item.product.price * item.quantity,
     0,
@@ -223,7 +226,10 @@ export default function CartPage() {
             </div>
 
             {/* Checkout */}
-            <button className="w-full bg-black hover:bg-gray-900 transition text-white py-5 text-lg font-semibold rounded-lg">
+            <button
+              onClick={() => router.push("/checkout")}
+              className="w-full bg-black hover:bg-gray-900 transition text-white py-5 text-lg font-semibold rounded-lg"
+            >
               PROCEED TO CHECKOUT
             </button>
           </div>
