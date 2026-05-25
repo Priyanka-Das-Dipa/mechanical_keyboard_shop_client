@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Image from "next/image";
@@ -7,15 +8,21 @@ import { useEffect, useRef, useState } from "react";
 import logo from "@/public/logo.png";
 import { useAppSelector } from "@/src/redux/store/hooks";
 import { Heart, ShoppingCart } from "lucide-react";
+import CartSidebar from "./CartSidebar";
+import { useGetCartQuery } from "@/src/redux/features/user/userApi";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [dropdownState, setDropdownState] = useState(false);
+  const [cartSidebarOpen, setCartSidebarOpen] = useState(false);
   const dropDownMenuRef = useRef<HTMLDivElement | null>(null);
-  const cartItems = useAppSelector((state) => state.cart?.items ?? []);
+  const { data: cartItems = [], isLoading } = useGetCartQuery({});
   const wishlistItems = useAppSelector((state) => state.wishlist?.items ?? []);
 
-  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const cartCount = cartItems.reduce(
+    (total: number, item: any) => total + item.quantity,
+    0,
+  );
 
   const wishlistCount = wishlistItems.length;
 
@@ -130,8 +137,8 @@ export default function Navbar() {
               </Link>
 
               {/* Cart */}
-              <Link
-                href="/cart"
+              <button
+                onClick={() => setCartSidebarOpen(true)}
                 className="relative hover:text-cyan-400 transition"
               >
                 <ShoppingCart size={24} />
@@ -141,7 +148,7 @@ export default function Navbar() {
                     {cartCount}
                   </span>
                 )}
-              </Link>
+              </button>
             </div>
 
             {/* ================= MOBILE BUTTON ================= */}
@@ -257,6 +264,11 @@ export default function Navbar() {
           </ul>
         </div>
       </div>
+      <CartSidebar
+        isOpen={cartSidebarOpen}
+        onClose={() => setCartSidebarOpen(false)}
+        cartItems={cartItems}
+      />
     </>
   );
 }

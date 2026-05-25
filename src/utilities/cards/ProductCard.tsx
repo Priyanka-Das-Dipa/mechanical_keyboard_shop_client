@@ -5,10 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import StarRating from "../others/StarRating";
 import { Product } from "@/src/redux/features/product/product.type";
-import {
-  useAddToCartMutation,
-  useAddToWishlistMutation,
-} from "@/src/redux/features/user/userApi";
+import { useAddToWishlistMutation } from "@/src/redux/features/user/userApi";
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "@/src/redux/store/hooks";
 import { addToWishlist as addToWishlistSlice } from "@/src/redux/features/wishlist/wishlistSlice";
@@ -22,7 +19,6 @@ export default function ProductCard({ product }: { product: Product }) {
     images?.length > 0 ? `http://localhost:5000${images[0]}` : "/b3.png";
 
   const [addToWishlist] = useAddToWishlistMutation();
-  const [addToCart] = useAddToCartMutation();
   const wishlistItems = useAppSelector((state) => state.wishlist.items);
   const isWishlisted = wishlistItems.some((item) => item.productId === _id);
   const handleWishlist = async () => {
