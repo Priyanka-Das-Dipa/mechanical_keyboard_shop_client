@@ -39,7 +39,12 @@ export default function CheckoutPage() {
     }
 
     try {
-      const res = await checkout().unwrap();
+      const res = await checkout({
+        customerName: formData.name,
+        customerEmail: formData.email,
+        customerPhone: formData.phone,
+        deliveryAddress: formData.address,
+      }).unwrap();
 
       if (res?.url) {
         window.location.href = res.url;

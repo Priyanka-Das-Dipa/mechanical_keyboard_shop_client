@@ -84,13 +84,20 @@ export const userApi = createApi({
     }),
 
     // CHECKOUT
-    checkout: builder.mutation<{ url: string }, void>({
-      query: () => ({
+    checkout: builder.mutation<
+      { url: string },
+      {
+        customerName: string;
+        customerEmail: string;
+        customerPhone: string;
+        deliveryAddress: string;
+      }
+    >({
+      query: (data) => ({
         url: "/user/checkout",
         method: "POST",
+        body: data,
       }),
-
-      invalidatesTags: ["Cart"],
     }),
   }),
 });
