@@ -63,13 +63,7 @@ export default function Sidebar() {
   ];
 
   // FINAL NAV
-  const navItems = [
-    ...commonItems,
-
-    ...userItems,
-
-    ...(isAdmin ? adminItems : []),
-  ];
+  const navItems = [...commonItems, ...(isAdmin ? adminItems : userItems)];
   return (
     <div
       className={`h-full bg-white border-r border-gray-200 transition-all duration-300 flex flex-col ${open ? "w-64" : "w-20"}`}

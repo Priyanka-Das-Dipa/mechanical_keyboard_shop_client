@@ -9,7 +9,7 @@ import { userApi } from "../features/user/userApi";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "wishlist", "cart"], // only persist auth state
+  whitelist: ["auth", "wishlist", "cart"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

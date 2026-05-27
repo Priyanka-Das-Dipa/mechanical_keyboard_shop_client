@@ -2,7 +2,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../lib/api";
 import { RootState } from "../../store/store";
-import { User } from "../auth/types";
+import { DashboardStats, User } from "../auth/types";
 
 export const userApi = createApi({
   reducerPath: "userApi",
@@ -23,7 +23,7 @@ export const userApi = createApi({
     },
   }),
 
-  tagTypes: ["Wishlist", "Cart", "Orders", "Users"],
+  tagTypes: ["Wishlist", "Cart", "Orders", "Users", "Dashboard"],
 
   endpoints: (builder) => ({
     // WISHLIST
@@ -150,6 +150,13 @@ export const userApi = createApi({
 
       invalidatesTags: ["Users"],
     }),
+
+    // get all stats for dashboard
+    getDashboardStats: builder.query<DashboardStats, void>({
+      query: () => "/user/dashboard-stats",
+
+      providesTags: ["Dashboard"],
+    }),
   }),
 });
 
@@ -166,4 +173,5 @@ export const {
   useUpdateOrderStatusMutation,
   useGetAllUsersQuery,
   useUpdateUserRoleMutation,
+  useGetDashboardStatsQuery,
 } = userApi;

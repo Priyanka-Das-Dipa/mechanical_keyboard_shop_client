@@ -28,3 +28,14 @@ export interface AuthResponse {
   refreshToken?: string;
   tokens: Tokens;
 }
+
+export interface DashboardStats {
+  totalUsers: number;
+  totalOrders: number;
+  totalRevenue: number;
+
+  salesData: {
+    month: string;
+    sales: number;
+  }[];
+}

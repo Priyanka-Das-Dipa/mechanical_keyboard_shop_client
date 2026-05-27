@@ -31,9 +31,10 @@ export default function Navbar() {
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
+    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     dispatch(logout());
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    // localStorage.removeItem("accessToken");
+    // localStorage.removeItem("refreshToken");
     toast.success("Logout successful");
     router.push("/login");
   };

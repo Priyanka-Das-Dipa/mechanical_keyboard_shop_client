@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/immutability */
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useLoginMutation } from "@/src/redux/features/auth/authApi";
@@ -47,15 +48,19 @@ export default function LoginForm() {
         return;
       }
 
+      const token = response.tokens.accessToken;
+
+      // SAVE TOKEN IN COOKIE
+      document.cookie = `token=${token}; path=/`;
       dispatch(
         setCredentials({
           user: response.user,
-          token: response.tokens.accessToken, 
+          token,
         }),
       );
 
       toast.success("Login successful! Welcome back 🎉");
-      router.push("/dashboard"); 
+      router.push("/dashboard");
     } catch (err: any) {
       const message = err?.data?.message || "Login failed";
       toast.error(message);

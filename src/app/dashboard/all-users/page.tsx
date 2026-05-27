@@ -33,25 +33,25 @@ export default function AllUserPage() {
       <h1 className="text-3xl font-bold mb-6">All Users</h1>
 
       <div className="overflow-x-auto">
-        <table className="w-full border border-gray-300">
-          <thead className="bg-gray-100">
+        <table className="w-full rounded-2xl border border-gray-300">
+          <thead className="bg-blue-400">
             <tr>
-              <th className="border p-3 text-left">Name</th>
+              <th className="border border-gray-300 p-3 text-left">Name</th>
 
-              <th className="border p-3 text-left">Email</th>
+              <th className="border border-gray-300 p-3 text-left">Email</th>
 
-              <th className="border p-3 text-left">Role</th>
+              <th className="border border-gray-300 p-3 text-left">Role</th>
             </tr>
           </thead>
 
           <tbody>
             {users?.map((user) => (
               <tr key={user?._id}>
-                <td className="border p-3">{user?.name}</td>
+                <td className="border border-gray-300 p-3">{user?.name}</td>
 
-                <td className="border p-3">{user?.email}</td>
+                <td className="border border-gray-300 p-3">{user?.email}</td>
 
-                <td className="border p-3">
+                <td className="border border-gray-300 p-3">
                   <select
                     value={user?.role}
                     onChange={(e) =>
@@ -60,7 +60,7 @@ export default function AllUserPage() {
                         e.target.value as "user" | "admin",
                       )
                     }
-                    className="border px-3 py-2 rounded"
+                    className="border border-gray-300 px-3 py-2 rounded"
                   >
                     <option value="user">User</option>
 
