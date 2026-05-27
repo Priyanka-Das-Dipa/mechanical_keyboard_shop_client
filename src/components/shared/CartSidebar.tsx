@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import { useAppSelector } from "@/src/redux/store/hooks";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface CartSidebarProps {
   isOpen: boolean;
@@ -15,6 +17,21 @@ export default function CartSidebar({
   onClose,
   cartItems,
 }: CartSidebarProps) {
+  const router = useRouter();
+
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+
+  const handleViewCart = () => {
+    onClose();
+
+    // NOT LOGGED IN
+    if (!isAuthenticated) {
+      router.push("/login");
+      return;
+    }
+
+    router.push("/cart");
+  };
   return (
     <div
       className={`fixed inset-0 z-[99999] transition-all duration-300 ${
@@ -87,13 +104,19 @@ export default function CartSidebar({
 
         {/* Footer */}
         <div className="absolute bottom-0 left-0 w-full border-t border-slate-800 p-5 bg-slate-950">
-          <Link
+          {/* <Link
             href="/cart"
             onClick={onClose}
             className="flex items-center justify-center w-full rounded-xl bg-blue-500 py-3 font-semibold text-black hover:bg-cyan-400 transition"
           >
             View Cart
-          </Link>
+          </Link> */}
+          <button
+            onClick={handleViewCart}
+            className="flex items-center justify-center w-full rounded-xl bg-blue-500 py-3 font-semibold text-black hover:bg-cyan-400 transition"
+          >
+            View Cart
+          </button>
         </div>
       </div>
     </div>
