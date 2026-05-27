@@ -4,7 +4,7 @@ export interface Review {
   id: number;
   name: string;
   handle: string;
-  avatar?: StaticImageData | string;
+  avatar: StaticImageData | string;
   rating: number;
   title: string;
   review: string;
