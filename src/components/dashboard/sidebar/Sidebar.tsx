@@ -5,11 +5,11 @@ import { usePathname } from "next/navigation";
 import { useSidebar } from "./SidebarContext";
 import { useAppSelector } from "@/src/redux/store/hooks";
 
-
 export default function Sidebar() {
   const { open, toggleSidebar } = useSidebar();
   const pathname = usePathname();
   const user = useAppSelector((state) => state.auth.user);
+  console.log(user, "sidebar");
 
   const isAdmin = user?.role === "admin";
   // COMMON NAV
@@ -38,6 +38,11 @@ export default function Sidebar() {
 
   // ADMIN NAV
   const adminItems = [
+    {
+      href: "/dashboard/all-users",
+      label: "All Users",
+      icon: Package,
+    },
     {
       href: "/dashboard/all-product",
       label: "All Products",

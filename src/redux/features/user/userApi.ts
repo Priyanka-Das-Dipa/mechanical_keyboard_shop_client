@@ -2,6 +2,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../lib/api";
 import { RootState } from "../../store/store";
+import { User } from "../auth/types";
 
 export const userApi = createApi({
   reducerPath: "userApi",
@@ -22,7 +23,7 @@ export const userApi = createApi({
     },
   }),
 
-  tagTypes: ["Wishlist", "Cart", "Orders"],
+  tagTypes: ["Wishlist", "Cart", "Orders", "Users"],
 
   endpoints: (builder) => ({
     // WISHLIST
@@ -122,6 +123,33 @@ export const userApi = createApi({
 
       invalidatesTags: ["Orders"],
     }),
+
+    // GET ALL USERS
+    getAllUsers: builder.query<User[], void>({
+      query: () => "/user/all-users",
+
+      providesTags: ["Users"],
+    }),
+
+    // UPDATE USER ROLE
+    updateUserRole: builder.mutation<
+      any,
+      {
+        userId: string;
+        role: "user" | "admin";
+      }
+    >({
+      query: ({ userId, role }) => ({
+        url: `/user/role/${userId}`,
+        method: "PATCH",
+
+        body: {
+          role,
+        },
+      }),
+
+      invalidatesTags: ["Users"],
+    }),
   }),
 });
 
@@ -136,4 +164,6 @@ export const {
   useGetAllOrdersQuery,
   useGetMyOrdersQuery,
   useUpdateOrderStatusMutation,
+  useGetAllUsersQuery,
+  useUpdateUserRoleMutation,
 } = userApi;
