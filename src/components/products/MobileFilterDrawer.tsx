@@ -7,6 +7,19 @@ import ProductFilters from "./ProductFilters";
 
 export default function MobileFilterDrawer() {
   const [isOpen, setIsOpen] = useState(false);
+  const [brand, setBrand] = useState("");
+  const [minPrice, setMinPrice] = useState<number | undefined>();
+  const [maxPrice, setMaxPrice] = useState<number | undefined>();
+
+  const handleApply = () => {
+    console.log({
+      brand,
+      minPrice,
+      maxPrice,
+    });
+
+    setIsOpen(false);
+  };
   return (
     <>
       {/* Mobile Filter Button - Visible only on mobile */}
@@ -55,7 +68,15 @@ export default function MobileFilterDrawer() {
                 </div>
 
                 {/* Filters Content */}
-                <ProductFilters />
+                <ProductFilters
+                  brand={brand}
+                  setBrand={setBrand}
+                  minPrice={minPrice}
+                  maxPrice={maxPrice}
+                  setMinPrice={setMinPrice}
+                  setMaxPrice={setMaxPrice}
+                  onApply={handleApply}
+                />
 
                 {/* Footer Buttons */}
                 <div className="sticky bottom-0 bg-[var(--background)] pt-6 mt-8 border-t border-[var(--border-color)] flex gap-3">

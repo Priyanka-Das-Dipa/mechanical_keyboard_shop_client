@@ -24,6 +24,7 @@ export default function ProductFilters({
 }: Props) {
   const { data: brands = [] } = useGetBrandsQuery();
   
+
   const toggleBrand = (value: string) => {
     if (brand === value) {
       setBrand(""); // unselect
