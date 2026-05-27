@@ -22,7 +22,7 @@ export const userApi = createApi({
     },
   }),
 
-  tagTypes: ["Wishlist", "Cart"],
+  tagTypes: ["Wishlist", "Cart", "Orders"],
 
   endpoints: (builder) => ({
     // WISHLIST
@@ -99,6 +99,29 @@ export const userApi = createApi({
         body: data,
       }),
     }),
+
+    // GET ALL ORDERS (ADMIN)
+    getAllOrders: builder.query({
+      query: () => "/user/orders",
+      providesTags: ["Orders"],
+    }),
+
+    // GET MY ORDERS
+    getMyOrders: builder.query({
+      query: () => "/user/my-orders",
+      providesTags: ["Orders"],
+    }),
+
+    // UPDATE ORDER STATUS
+    updateOrderStatus: builder.mutation({
+      query: ({ orderId, status }) => ({
+        url: `/user/orders/${orderId}/status`,
+        method: "PATCH",
+        body: { status },
+      }),
+
+      invalidatesTags: ["Orders"],
+    }),
   }),
 });
 
@@ -110,4 +133,7 @@ export const {
   useAddToCartMutation,
   useRemoveFromCartMutation,
   useCheckoutMutation,
+  useGetAllOrdersQuery,
+  useGetMyOrdersQuery,
+  useUpdateOrderStatusMutation,
 } = userApi;

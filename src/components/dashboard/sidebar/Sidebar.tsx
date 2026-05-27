@@ -9,6 +9,8 @@ const navItems = [
   { href: "/dashboard/all-product", label: "All Products", icon: Package },
   { href: "/dashboard/add-product", label: "Add Product", icon: Plus },
   { href: "/dashboard/wishlist", label: "Wishlist", icon: Heart },
+  { href: "/dashboard/all-orders", label: "All Orders", icon: Package },
+  { href: "/dashboard/my-orders", label: "My Orders", icon: Package },
 ];
 
 export default function Sidebar() {
