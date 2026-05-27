@@ -36,7 +36,7 @@ export default function WishList() {
     );
   }
   return (
-    <div className="px-5 ">
+    <div className="">
       <h1 className="text-3xl text-black font-semibold mb-6">My Wishlist</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
@@ -46,7 +46,7 @@ export default function WishList() {
             productId={item?._id}
             name={item?.name}
             price={item?.price}
-            image={`http://localhost:5000${item?.images?.[0]}`}
+            images={item?.images}
             brand={item?.brand}
             onRemove={handleRemoveFromWishlist}
             onAddToCart={handleAddToCart}

@@ -41,11 +41,7 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginFormData) => {
     // or RegisterFormData
     try {
-      const response = await loginUser(data).unwrap(); // or registerUser
-
-      console.log("Full API Response:", response); // Keep for now
-
-      // ✅ FIXED: Use tokens.accessToken
+      const response = await loginUser(data).unwrap();
       if (!response?.tokens?.accessToken) {
         toast.error("No access token received from server");
         return;
@@ -54,12 +50,12 @@ export default function LoginForm() {
       dispatch(
         setCredentials({
           user: response.user,
-          token: response.tokens.accessToken, // ← Important fix
+          token: response.tokens.accessToken, 
         }),
       );
 
       toast.success("Login successful! Welcome back 🎉");
-      router.push("/dashboard"); // or wherever you want to go
+      router.push("/dashboard"); 
     } catch (err: any) {
       const message = err?.data?.message || "Login failed";
       toast.error(message);

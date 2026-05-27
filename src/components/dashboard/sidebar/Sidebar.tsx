@@ -3,19 +3,68 @@ import { Heart, Home, Menu, Package, Plus, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "./SidebarContext";
+import { useAppSelector } from "@/src/redux/store/hooks";
 
-const navItems = [
-  { href: "/dashboard", label: "Dashboard", icon: Home },
-  { href: "/dashboard/all-product", label: "All Products", icon: Package },
-  { href: "/dashboard/add-product", label: "Add Product", icon: Plus },
-  { href: "/dashboard/wishlist", label: "Wishlist", icon: Heart },
-  { href: "/dashboard/all-orders", label: "All Orders", icon: Package },
-  { href: "/dashboard/my-orders", label: "My Orders", icon: Package },
-];
 
 export default function Sidebar() {
   const { open, toggleSidebar } = useSidebar();
   const pathname = usePathname();
+  const user = useAppSelector((state) => state.auth.user);
+
+  const isAdmin = user?.role === "admin";
+  // COMMON NAV
+  const commonItems = [
+    {
+      href: "/dashboard",
+      label: "Dashboard",
+      icon: Home,
+    },
+  ];
+
+  // USER NAV
+  const userItems = [
+    {
+      href: "/dashboard/wishlist",
+      label: "Wishlist",
+      icon: Heart,
+    },
+
+    {
+      href: "/dashboard/my-orders",
+      label: "My Orders",
+      icon: Package,
+    },
+  ];
+
+  // ADMIN NAV
+  const adminItems = [
+    {
+      href: "/dashboard/all-product",
+      label: "All Products",
+      icon: Package,
+    },
+
+    {
+      href: "/dashboard/add-product",
+      label: "Add Product",
+      icon: Plus,
+    },
+
+    {
+      href: "/dashboard/all-orders",
+      label: "All Orders",
+      icon: Package,
+    },
+  ];
+
+  // FINAL NAV
+  const navItems = [
+    ...commonItems,
+
+    ...userItems,
+
+    ...(isAdmin ? adminItems : []),
+  ];
   return (
     <div
       className={`h-full bg-white border-r border-gray-200 transition-all duration-300 flex flex-col ${open ? "w-64" : "w-20"}`}
@@ -66,8 +115,11 @@ export default function Sidebar() {
           <div className="w-9 h-9 bg-gray-200 rounded-full" />
           {open && (
             <div>
-              <p className="font-medium text-sm">Admin User</p>
-              <p className="text-xs text-gray-500">admin@keyforge.com</p>
+              <p className="font-medium text-black text-sm">
+                {user?.name || "User"}
+              </p>
+
+              <p className="text-xs text-gray-500">{user?.email}</p>
             </div>
           )}
         </div>

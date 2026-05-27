@@ -27,7 +27,7 @@ export default function MyOrderPage() {
 
       <div className="space-y-6">
         {orders.map((order: any,) => (
-          <div key={order?._id} className="border  border-gray-200 rounded-2xl p-6 shadow-sm">
+          <div key={order?._id} className="border bg-white border-gray-200 rounded-2xl p-6 shadow-sm">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
               <div>
                 <h2 className="text-2xl font-semibold">

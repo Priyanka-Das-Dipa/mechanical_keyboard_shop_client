@@ -3,21 +3,42 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import logo from "@/public/logo.png";
-import { useAppSelector } from "@/src/redux/store/hooks";
-import { Heart, ShoppingCart } from "lucide-react";
+import { Heart, ShoppingCart, User } from "lucide-react";
 import CartSidebar from "./CartSidebar";
-import { useGetCartQuery } from "@/src/redux/features/user/userApi";
+import {
+  useGetCartQuery,
+  useGetWishlistQuery,
+} from "@/src/redux/features/user/userApi";
+import toast from "react-hot-toast";
+import { useAppDispatch, useAppSelector } from "@/src/redux/store/hooks";
+import { logout } from "@/src/redux/features/auth/authSlice";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [dropdownState, setDropdownState] = useState(false);
   const [cartSidebarOpen, setCartSidebarOpen] = useState(false);
+  const [userDropdown, setUserDropdown] = useState(false);
   const dropDownMenuRef = useRef<HTMLDivElement | null>(null);
-  const { data: cartItems = [], isLoading } = useGetCartQuery({});
-  const wishlistItems = useAppSelector((state) => state.wishlist?.items ?? []);
+  const { data: cartItems = [] } = useGetCartQuery({});
+  const { data: wishlistItems = [] } = useGetWishlistQuery();
+
+  const user = useAppSelector((state) => state.auth.user);
+
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    toast.success("Logout successful");
+    router.push("/login");
+  };
+
+  const isLoggedIn = !!user;
 
   const cartCount = cartItems.reduce(
     (total: number, item: any) => total + item.quantity,
@@ -42,10 +63,6 @@ export default function Navbar() {
     {
       name: "Contact Us",
       path: "/contact-us",
-    },
-    {
-      name: "Login",
-      path: "/login",
     },
   ];
 
@@ -122,6 +139,55 @@ export default function Navbar() {
             </ul>
 
             <div className="flex items-center gap-5">
+              <div className="relative">
+                {/* User Icon */}
+                <button
+                  onClick={() => setUserDropdown(!userDropdown)}
+                  className="hover:text-cyan-400 transition"
+                >
+                  <User size={28} />
+                </button>
+
+                {/* Dropdown */}
+                {userDropdown && (
+                  <div className="absolute right-0 top-10 w-44 rounded-xl border border-slate-800 bg-gray-700 shadow-2xl overflow-hidden z-50">
+                    {/* Dashboard */}
+                    {isLoggedIn && (
+                      <Link
+                        href="/dashboard"
+                        onClick={() => setUserDropdown(false)}
+                        className="block px-4 py-3 text-sm hover:bg-slate-800 transition"
+                      >
+                        Dashboard
+                      </Link>
+                    )}
+
+                    {/* Login */}
+                    {!isLoggedIn && (
+                      <Link
+                        href="/login"
+                        onClick={() => setUserDropdown(false)}
+                        className="block px-4 py-3 text-sm hover:bg-slate-800 transition"
+                      >
+                        Login
+                      </Link>
+                    )}
+
+                    {/* Logout */}
+                    {isLoggedIn && (
+                      <button
+                        onClick={() => {
+                          handleLogout();
+                          setUserDropdown(false);
+                        }}
+                        className="w-full text-left px-4 py-3 text-sm hover:bg-slate-800 transition text-red-400"
+                      >
+                        Logout
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
               {/* Wishlist */}
               <Link
                 href="/dashboard/wishlist"

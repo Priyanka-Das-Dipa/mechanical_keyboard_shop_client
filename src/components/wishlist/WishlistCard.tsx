@@ -8,7 +8,7 @@ interface WishlistCardProps {
   productId: string;
   name: string;
   price: number;
-  images: string;
+  images: string[];
   brand: string;
   onRemove: (productId: string) => void;
   onAddToCart: (productId: string) => void;
