@@ -51,7 +51,12 @@ export default function LoginForm() {
       const token = response.tokens.accessToken;
 
       // SAVE TOKEN IN COOKIE
-      document.cookie = `token=${token}; path=/`;
+      // document.cookie = `token=${token}; path=/`;
+      res.cookie("token", accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+      });
       dispatch(
         setCredentials({
           user: response.user,
