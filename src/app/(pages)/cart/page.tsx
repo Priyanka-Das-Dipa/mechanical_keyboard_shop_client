@@ -121,7 +121,7 @@ export default function CartPage() {
                   <Image
                     src={
                       item?.product?.images?.length > 0
-                        ? `http://localhost:5000${item.product.images[0]}`
+                        ? `https://mechanical-keyboard-shop-server-ea2u.onrender.com${item.product.images[0]}`
                         : "/b3.png"
                     }
                     alt={item?.product?.name}
