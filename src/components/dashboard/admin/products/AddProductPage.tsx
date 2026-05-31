@@ -87,7 +87,7 @@ export default function AddProductPage() {
       setImagePreviews([]);
       setFeatures([""]);
 
-      router.push("/dashboard/products");
+      router.push("/dashboard/all-product");
     } catch (err: any) {
       toast.error(err?.data?.message || "Failed to create product");
     }
