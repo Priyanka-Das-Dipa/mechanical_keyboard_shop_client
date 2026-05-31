@@ -24,7 +24,7 @@ export default function WishlistCard({
   onAddToCart,
 }: WishlistCardProps) {
   const imageUrl =
-    images?.length > 0 ? `http://localhost:5000${images[0]}` : "/b3.png";
+    images?.length > 0 ? `https://mechanical-keyboard-shop-server-ea2u.onrender.com${images[0]}` : "/b3.png";
   return (
     <div className="w-full max-w-65 mx-auto rounded-2xl border border-black/10 bg-white overflow-hidden font-sans select-none">
       {/* Image Area */}

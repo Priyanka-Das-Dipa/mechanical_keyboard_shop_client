@@ -31,7 +31,7 @@ export default function ImageGallery({ images }: Props) {
             className="h-full w-full"
           >
             {images.map((img, index) => {
-              const imageUrl = `http://localhost:5000${img}`;
+              const imageUrl = `https://mechanical-keyboard-shop-server-ea2u.onrender.com${img}`;
 
               return (
                 <SwiperSlide key={index}>
@@ -63,7 +63,7 @@ export default function ImageGallery({ images }: Props) {
             className="thumbs-swiper"
           >
             {images.map((img, index) => {
-              const imageUrl = `http://localhost:5000${img}`;
+              const imageUrl = `https://mechanical-keyboard-shop-server-ea2u.onrender.com${img}`;
 
               return (
                 <SwiperSlide key={index}>
