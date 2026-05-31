@@ -41,7 +41,7 @@ export default function ProductTable({ products, onEdit, onDelete }: Props) {
           {products.map((product, index) => {
             const imageUrl =
               product?.images?.length > 0
-                ? `http://localhost:5000${product?.images[0]}`
+                ? `https://mechanical-keyboard-shop-server-ea2u.onrender.com${product?.images[0]}`
                 : "/b3.png";
 
             return (

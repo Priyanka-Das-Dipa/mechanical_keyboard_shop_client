@@ -16,7 +16,9 @@ export default function ProductCard({ product }: { product: Product }) {
 
   const { _id, name, brand, price, images, quantity, rating } = product;
   const imageUrl =
-    images?.length > 0 ? `http://localhost:5000${images[0]}` : "/b3.png";
+    images?.length > 0
+      ? `https://mechanical-keyboard-shop-server-ea2u.onrender.com${images[0]}`
+      : "/b3.png";
 
   const [addToWishlist] = useAddToWishlistMutation();
   const wishlistItems = useAppSelector((state) => state.wishlist.items);
