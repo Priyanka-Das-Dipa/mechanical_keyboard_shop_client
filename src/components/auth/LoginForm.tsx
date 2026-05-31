@@ -52,11 +52,7 @@ export default function LoginForm() {
 
       // SAVE TOKEN IN COOKIE
       // document.cookie = `token=${token}; path=/`;
-      res.cookie("token", accessToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-      });
+      document.cookie = `token=${token}; path=/; secure; samesite=none`;
       dispatch(
         setCredentials({
           user: response.user,
