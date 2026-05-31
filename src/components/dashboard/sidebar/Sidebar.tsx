@@ -9,8 +9,7 @@ export default function Sidebar() {
   const { open, toggleSidebar } = useSidebar();
   const pathname = usePathname();
   const user = useAppSelector((state) => state.auth.user);
-  console.log(user, "sidebar");
-
+  
   const isAdmin = user?.role === "admin";
   // COMMON NAV
   const commonItems = [
